@@ -60,7 +60,7 @@ sudo sed -i -e "s|\"local\"|$DATABASE_URL|" \
             -e "s|NGINX_PORT_HTTPS=|NGINX_PORT_HTTPS=$NGINX_PORT_HTTPS|" \
             -e "s|GIT_MAIL|GIT_MAIL=$GIT_MAIL|" \
             -e "s|GIT_USERNAME|GIT_USERNAME=$GIT_USERNAME|" \
-            .env.local
+            .env
 
 echo -e "\n"
 echo "+--------------------------+"
