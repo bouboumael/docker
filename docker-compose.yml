@@ -40,7 +40,7 @@ services:
         ports:
             - "${MYSQL_PORT}:3306"
         volumes:
-            - ./docker/mysql:/var/lib/mysql
+            - ./docker/database:/var/lib/mysql
         restart: always
         environment:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
