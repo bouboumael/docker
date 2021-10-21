@@ -35,12 +35,10 @@ echo "+---------------------------+"
 echo "|  Configuration du server  |"
 echo "+---------------------------+"
 echo -e "\n"
-
-echo -e "\n"
 read -p "Voulez vous configurer le server (N/o)" server
 echo -e "\n"
 
-if [ server = "o" ]
+if [ $server = "o" ]
 then
   sudo cp model.env .env
 
