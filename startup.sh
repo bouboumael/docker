@@ -1,8 +1,5 @@
 sudo true
 
-sudo chmod -R 777 /var
-sudo chmod -R 777 /public
-
 echo -e "\n"
 echo "+--------------------------+"
 echo "|  Installation de Docker  |"
