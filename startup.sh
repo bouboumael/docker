@@ -84,6 +84,10 @@ sudo docker-compose exec -T php-service php bin/console d:d:d --force --no-inter
 sudo docker-compose exec -T php-service php bin/console d:d:c --no-interaction
 sudo docker-compose exec -T php-service php bin/console d:m:m --verbose --no-interaction --allow-no-migration
 
+if [ ${APP_ENV} != "prod" ]; then
+  sudo docker-compose exec -T php-service php bin/console doctrine:fixtures:load --quiet --no-interaction --no-debug
+fi
+
 clear
 
 echo -e "\n"
