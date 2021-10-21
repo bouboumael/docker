@@ -25,7 +25,7 @@ RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 RUN git config --global user.email ${GIT_MAIL} \
     && git config --global user.name ${GIT_USERNAME}
 
-COPY ./composer.lock ./composer.json /application/
+COPY ./ /application/
 RUN composer install --prefer-dist && composer dump-autoload
 
 
