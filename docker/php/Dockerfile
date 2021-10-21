@@ -34,3 +34,5 @@ RUN npm install npm@latest -g
 RUN npm install yarn@latest -g
 RUN npm -v
 RUN node -v
+
+ENTRYPOINT [ "/docker/php/docker-entry.sh" ]
