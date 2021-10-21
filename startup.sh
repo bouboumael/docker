@@ -1,5 +1,7 @@
 sudo true
 
+chmod -R 777 .
+
 echo -e "\n"
 echo "+--------------------------+"
 echo "|  Installation de Docker  |"
