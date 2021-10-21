@@ -45,6 +45,7 @@ then
   read -p "Nom de votre database : " MYSQL_DATABASE
   read -p "Nom de votre utilisateur : " MYSQL_USER
   read -s -p "Mot de passe utilisateur : " MYSQL_PASSWORD
+  echo -e "\n"
   read -p "Port de la BDD : " MYSQL_PORT
   read -p "Port PHP : " PHP_PORT
   read -p "Port HTTP : " NGINX_PORT_HTTP
