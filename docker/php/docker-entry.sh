@@ -7,9 +7,5 @@ php bin/console doctrine:migrations:migrate --verbose --no-interaction --allow-n
 php bin/console cache:clear
 php bin/console cache:warmup
 
-chmod -R 777 /var
-chmod -R 777 /public
-
-## server config
-php-fpm &
-nginx -g "daemon off;"
+chmod -R 777 /application/var
+chmod -R 777 /application/public
