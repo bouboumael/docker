@@ -26,8 +26,7 @@ RUN git config --global user.email ${GIT_MAIL} \
     && git config --global user.name ${GIT_USERNAME}
 
 COPY ./composer.lock ./composer.json /application/
-RUN if [ ${APP_ENV} = "prod" ] ; then composer install --no-scripts --no-dev --no-interaction -o ; else composer install --no-scripts --no-interaction -o ; fi
-RUN composer require symfony/runtime --no-scripts --no-interaction
+RUN cd / && composer install --prefer-dist && composer dump-autoload
 
 
 #RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
