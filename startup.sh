@@ -88,8 +88,8 @@ clear
 
 echo -e "\n"
 echo "+-------------------------------+"
-echo "|     Votre projet est lancé     |"
+echo "|     Votre projet est lancé    |"
 echo "| Configurez votre .env Symfony |"
-echo "|           Si Besoin           |"
+echo "|           si Besoin           |"
 echo "+-------------------------------+"
 echo -e "\n"
