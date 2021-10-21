@@ -20,15 +20,14 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN curl -sS https://get.symfony.com/cli/installer | bash
-RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+# RUN curl -sS https://get.symfony.com/cli/installer | bash
+# RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
 RUN git config --global user.email ${GIT_MAIL} \
     && git config --global user.name ${GIT_USERNAME}
 
 #COPY ./composer.lock ./composer.json /application/
-RUN composer install --prefer-dist && composer dump-autoload
-
+RUN if [ ${APP_ENV} = "prod" ] ; then composer install --no-dev --no-interaction -o ; else composer install --no-interaction -o ; fi
 
 #RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 #RUN apt-get update && apt-get install -y nodejs

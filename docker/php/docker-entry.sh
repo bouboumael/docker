@@ -7,5 +7,5 @@ php bin/console doctrine:migrations:migrate --verbose --no-interaction --allow-n
 php bin/console cache:clear
 php bin/console cache:warmup
 
-chmod -R 777 /application/var
+chmod -R 777 /application
 chmod -R 777 /application/public
