@@ -1,6 +1,6 @@
 sudo true
 
-chmod -R 777 .
+sudo chmod -R 777 .
 
 echo -e "\n"
 echo "+--------------------------+"
