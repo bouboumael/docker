@@ -30,6 +30,7 @@ services:
             - "${PHP_PORT}:3306"
         volumes:
             - ./:/application
+        restart: always
         depends_on:
             - db-service
         networks:
