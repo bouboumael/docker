@@ -45,6 +45,7 @@ then
   read -p "Nom de votre database : " MYSQL_DATABASE
   read -p "Nom de votre utilisateur : " MYSQL_USER
   read -s -p "Mot de passe utilisateur : " MYSQL_PASSWORD
+  read -s -p "Mot de passe root : " MYSQL_ROOT_PASSWORD
   echo -e "\n"
   read -p "Port de la BDD : " MYSQL_PORT
   read -p "Port PHP : " PHP_PORT
@@ -60,6 +61,7 @@ then
               -e "s|MYSQL_DATABASE|MYSQL_DATABASE=$MYSQL_DATABASE|" \
               -e "s|MYSQL_USER|MYSQL_USER=$MYSQL_USER|" \
               -e "s|MYSQL_PASSWORD|MYSQL_PASSWORD=$MYSQL_PASSWORD|" \
+              -e "s|MYSQL_ROOT_PASSWORD|MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD|" \
               -e "s|PHP_PORT|PHP_PORT=$PHP_PORT|" \
               -e "s|NGINX_PORT_HTTP=|NGINX_PORT_HTTP=$NGINX_PORT_HTTP|" \
               -e "s|NGINX_PORT_HTTPS=|NGINX_PORT_HTTPS=$NGINX_PORT_HTTPS|" \
