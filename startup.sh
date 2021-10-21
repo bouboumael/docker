@@ -1,0 +1,86 @@
+sudo true
+
+echo -e "\n"
+echo "+--------------------------+"
+echo "|  Installation de Docker  |"
+echo "+--------------------------+"
+echo -e "\n"
+
+sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt-get update
+sudo  apt-get install \
+      apt-transport-https \
+      ca-certificates \
+      curl \
+      gnupg \
+      lsb-release
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+echo -e "\n"
+echo "+----------------------------------+"
+echo "|  Installation de Docker-Compose  |"
+echo "+----------------------------------+"
+echo -e "\n"
+
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+echo -e "\n"
+echo "+---------------------------+"
+echo "|  Configuration du server  |"
+echo "+---------------------------+"
+echo -e "\n"
+
+sudo cp model.env .env
+
+read -p "Nom de votre database : " MYSQL_DATABASE
+read -p "Nom de votre user : " MYSQL_USER
+read -p "Mot de passe : " MYSQL_PASSWORD
+read -p "Port de la BDD : " MYSQL_PORT
+read -p "Port PHP : " PHP_PORT
+read -p "Port HTTP : " NGINX_PORT_HTTP
+read -p "Port HTTPS : " NGINX_PORT_HTTPS
+read -p "EMAIL GIT : " GIT_MAIL
+read -p "USERNAME GIT : " GIT_USERNAME
+
+DATABASE_URL="mysql://$MYSQL_USER:$MYSQL_PASSWORD@db-service:3306/$MYSQL_DATABASE?serverVersion=mariadb-10.6.4"
+
+sudo sed -i -e "s|\"local\"|$DATABASE_URL|" \
+            -e "s|MYSQL_PORT|MYSQL_PORT=$MYSQL_PORT|" \
+            -e "s|MYSQL_DATABASE|MYSQL_DATABASE=$MYSQL_DATABASE|" \
+            -e "s|MYSQL_USER|MYSQL_USER=$MYSQL_USER|" \
+            -e "s|MYSQL_PASSWORD|MYSQL_PASSWORD=$MYSQL_PASSWORD|" \
+            -e "s|PHP_PORT|PHP_PORT=$PHP_PORT|" \
+            -e "s|NGINX_PORT_HTTP=|NGINX_PORT_HTTP=$NGINX_PORT_HTTP|" \
+            -e "s|NGINX_PORT_HTTPS=|NGINX_PORT_HTTPS=$NGINX_PORT_HTTPS|" \
+            -e "s|GIT_MAIL|GIT_MAIL=$GIT_MAIL|" \
+            -e "s|GIT_USERNAME|GIT_USERNAME=$GIT_USERNAME|" \
+            .env.local
+
+echo -e "\n"
+echo "+--------------------------+"
+echo "|        Run Server        |"
+echo "+--------------------------+"
+echo -e "\n"
+
+sudo docker-compose build
+sudo docker-compose up -d
+sudo docker-compose exec -T php-service composer install --ignore-platform-reqs --prefer-dist --no-scripts
+sudo docker-compose exec -T php-service php bin/console d:d:d --force --no-interaction
+sudo docker-compose exec -T php-service php bin/console d:d:c --no-interaction
+sudo docker-compose exec -T php-service php bin/console d:m:m --verbose --no-interaction --allow-no-migration
+
+clear
+
+echo -e "\n"
+echo "+-------------------------------+"
+echo "|     Votre projet est lancé     |"
+echo "| Configurez votre .env Symfony |"
+echo "|           Si Besoin           |"
+echo "+-------------------------------+"
+echo -e "\n"
