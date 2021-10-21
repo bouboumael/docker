@@ -26,7 +26,7 @@ RUN git config --global user.email ${GIT_MAIL} \
     && git config --global user.name ${GIT_USERNAME}
 
 COPY ./composer.lock ./composer.json /application/
-RUN if [ ${APP_ENV} = "prod" ] ; then composer install --no-dev --no-interaction -o ; else composer install --no-interaction -o ; fi
+RUN if [ ${APP_ENV} = "prod" ] ; then composer install --no-scripts --no-dev --no-interaction -o ; else composer install --no-scripts --no-interaction -o ; fi
 
 #RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 #RUN apt-get update && apt-get install -y nodejs
