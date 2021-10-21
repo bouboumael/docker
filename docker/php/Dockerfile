@@ -15,7 +15,7 @@ RUN apt update \
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /home/application
+WORKDIR /application
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -25,7 +25,7 @@ RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 RUN git config --global user.email ${GIT_MAIL} \
     && git config --global user.name ${GIT_USERNAME}
 
-COPY ./app/composer.lock ./app/composer.json /home/application/
+COPY ./composer.lock ./composer.json /application/
 RUN composer install --ignore-platform-reqs --prefer-dist --no-scripts
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
