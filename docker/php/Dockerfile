@@ -38,4 +38,4 @@ RUN if [ ${APP_ENV} = "prod" ] ; then composer install --no-dev --no-interaction
 
 COPY ./docker/php/docker-entry.sh /
 RUN chmod +x /docker-entry.sh
-ENTRYPOINT [ "/docker-entry.sh" ]
+#ENTRYPOINT [ "/docker-entry.sh" ]
