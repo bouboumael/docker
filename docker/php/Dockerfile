@@ -39,4 +39,3 @@ RUN npm -v
 COPY ./docker/php/docker-entry.sh /
 RUN chmod +x /docker-entry.sh
 ENTRYPOINT [ "/docker-entry.sh" ]
-CMD [ "tail", "-f", "/dev/null" ]

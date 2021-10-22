@@ -19,6 +19,7 @@ services:
         networks:
             - nginx-php-composer-mariadb
     php-service:
+        tty: true
         build:
             context: .
             dockerfile: ./docker/php/Dockerfile
