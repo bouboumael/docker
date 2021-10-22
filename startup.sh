@@ -87,18 +87,18 @@ echo "+--------------------------+"
 echo -e "\n"
 
 sudo docker-compose build
-sudo docker-compose up -d
-sudo docker-compose exec -T php-service composer install --ignore-platform-reqs --prefer-dist --no-scripts
-sudo docker-compose exec -T php-service php bin/console d:d:d --force --no-interaction
-sudo docker-compose exec -T php-service php bin/console d:d:c --no-interaction
-sudo docker-compose exec -T php-service php bin/console d:m:m --verbose --no-interaction --allow-no-migration
-
-if [ "${APP_ENV}" != "prod" ]; then
-  sudo docker-compose exec -T php-service php bin/console doctrine:fixtures:load --quiet --no-interaction --no-debug
-else
-  echo
-fi
-
+sudo docker-compose up #-d
+#sudo docker-compose exec -T php-service composer install --ignore-platform-reqs #--prefer-dist --no-scripts
+#sudo docker-compose exec -T php-service php bin/console d:d:d --force --no-interaction
+#sudo docker-compose exec -T php-service php bin/console d:d:c --no-interaction
+#sudo docker-compose exec -T php-service php bin/console d:m:m --verbose #--no-interaction --allow-no-migration
+#
+#if [ "${APP_ENV}" != "prod" ]; then
+#  sudo docker-compose exec -T php-service php bin/console doctrine:fixtures:load #--quiet --no-interaction --no-debug
+#else
+#  echo
+#fi
+#
 echo -e "\n"
 echo "+-------------------------------+"
 echo "|     Votre projet est lancé    |"
