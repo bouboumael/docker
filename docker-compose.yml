@@ -30,7 +30,7 @@ services:
             - "${PHP_PORT}:3306"
         volumes:
             - ./:/application
-        restart: always
+        restart: on-failure
         depends_on:
             - db-service
         networks:
@@ -42,7 +42,7 @@ services:
             - "${MYSQL_PORT}:3306"
         volumes:
             - ./docker/database:/var/lib/mysql
-        restart: always
+        restart: on-failure
         environment:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
             - MYSQL_DATABASE=${MYSQL_DATABASE}
