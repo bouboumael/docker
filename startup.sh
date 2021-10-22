@@ -40,7 +40,7 @@ echo -e "\n"
 read -p "Voulez vous configurer le server (N/o)" server
 echo -e "\n"
 
-if [ "$server" -eq "o" ]
+if [ "$server" = "o" ]
 then
   sudo cp model.env .env
 
@@ -93,7 +93,7 @@ sudo docker-compose exec -T php-service php bin/console d:d:d --force --no-inter
 sudo docker-compose exec -T php-service php bin/console d:d:c --no-interaction
 sudo docker-compose exec -T php-service php bin/console d:m:m --verbose --no-interaction --allow-no-migration
 
-if [ "${APP_ENV}" -ne "prod" ]; then
+if [ "${APP_ENV}" != "prod" ]; then
   sudo docker-compose exec -T php-service php bin/console doctrine:fixtures:load --quiet --no-interaction --no-debug
 else
   echo
