@@ -69,6 +69,13 @@ then
               -e "s|GIT_MAIL|GIT_MAIL=$GIT_MAIL|" \
               -e "s|GIT_USERNAME|GIT_USERNAME=$GIT_USERNAME|" \
               .env
+else
+    echo -e "\n"
+    echo "+-----------------------------------+"
+    echo "|   Si problème avec warn variable  |"
+    echo "|     relancer la config server     |"
+    echo "+-----------------------------------+"
+    echo -e "\n"
 fi
 
 echo -e "\n"
