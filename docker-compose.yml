@@ -40,8 +40,9 @@ services:
         container_name: db-container
         ports:
             - "${MYSQL_PORT}:3306"
-        working_dir: /application
-        restart: always
+        volumes:
+            - ./docker/database:/var/lib/mysql
+        restart: restart: on-failure
         environment:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
             - MYSQL_DATABASE=${MYSQL_DATABASE}
