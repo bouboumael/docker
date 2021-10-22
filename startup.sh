@@ -95,8 +95,6 @@ if [ ${APP_ENV} != "prod" ]; then
     sudo docker-compose exec -T php-service php bin/console doctrine:fixtures:load --quiet --no-interaction --no-debug
 fi
 
-clear
-
 echo -e "\n"
 echo "+-------------------------------+"
 echo "|     Votre projet est lancé    |"
