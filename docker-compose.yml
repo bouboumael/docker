@@ -19,7 +19,6 @@ services:
         networks:
             - nginx-php-composer-mariadb
     php-service:
-        stdin_open: true
         build:
             context: .
             dockerfile: ./docker/php/Dockerfile
