@@ -19,6 +19,7 @@ services:
         networks:
             - nginx-php-composer-mariadb
     php-service:
+        tty: true
         build:
             context: .
             dockerfile: ./docker/php/Dockerfile
@@ -30,7 +31,6 @@ services:
             - "${PHP_PORT}:3306"
         volumes:
             - ./:/application
-        command: tail -F anything
         restart: on-failure
         depends_on:
             - db-service
