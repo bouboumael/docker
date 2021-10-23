@@ -50,13 +50,3 @@ services:
             - MYSQL_PASSWORD=${MYSQL_PASSWORD}
         networks:
             - nginx-php-composer-mariadb
-    composer-service:
-        image: composer:latest
-        volumes:
-            - "./:/application"
-        depends_on:
-            - php-service
-        networks:
-            - nginx-php-composer-mariadb
-        command: install
-
