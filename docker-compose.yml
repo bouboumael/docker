@@ -54,8 +54,9 @@ services:
         image: composer:latest
         volumes:
             - "./:/application"
+        depends_on:
+            - php-service
         networks:
             - nginx-php-composer-mariadb
         command: install
-        depends_on:
-            -php-service
+
