@@ -1,4 +1,4 @@
-FROM php:8.0.11-fpm
+FROM php:8.0.11-fpm-alpine
 
 LABEL maintainer="PuddingLab"
 
@@ -27,15 +27,15 @@ RUN git config --global user.email ${GIT_MAIL} \
     && git config --global user.name ${GIT_USERNAME}
 
 #COPY ./composer.lock ./composer.json /application/
-RUN if [ ${APP_ENV} = "prod" ] ; then composer install --no-dev --no-interaction -o ; else composer install --no-interaction -o ; fi
+#RUN if [ ${APP_ENV} = "prod" ] ; then composer install --no-dev --no-interaction -o ; else composer install --no-interaction -o ; fi
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get update && apt-get install -y nodejs
-RUN npm install npm@latest -g
-RUN npm install yarn@latest -g
-RUN node -v
-RUN npm -v
+#RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+#RUN apt-get update && apt-get install -y nodejs
+#RUN npm install npm@latest -g
+#RUN npm install yarn@latest -g
+#RUN node -v
+#RUN npm -v
 
-COPY ./docker/php/docker-entry.sh /
-RUN chmod +x /docker-entry.sh
-ENTRYPOINT [ "/docker-entry.sh" ]
+#COPY ./docker/php/docker-entry.sh /
+#RUN chmod +x /docker-entry.sh
+#ENTRYPOINT [ "/docker-entry.sh" ]

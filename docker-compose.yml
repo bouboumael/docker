@@ -19,7 +19,6 @@ services:
         networks:
             - nginx-php-composer-mariadb
     php-service:
-        tty: true
         build:
             context: .
             dockerfile: ./docker/php/Dockerfile
@@ -51,3 +50,12 @@ services:
             - MYSQL_PASSWORD=${MYSQL_PASSWORD}
         networks:
             - nginx-php-composer-mariadb
+    composer-service:
+        image: composer:latest
+        volumes:
+            - "./:/application"
+        networks:
+            - nginx-php-composer-mariadb
+        command: install
+        depends_on:
+            -php-service
