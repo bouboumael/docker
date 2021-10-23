@@ -11,4 +11,3 @@
 # chmod -R 777 /application
 # chmod -R 777 /application/public
 composer install --no-interaction
-exec "$@"
