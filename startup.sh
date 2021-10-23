@@ -87,7 +87,7 @@ echo "+--------------------------+"
 echo -e "\n"
 
 sudo docker-compose build
-sudo docker-compose run #-d
+sudo docker-compose up #-d
 #sudo docker-compose exec -T php-service composer install --ignore-platform-reqs #--prefer-dist --no-scripts
 #sudo docker-compose exec -T php-service php bin/console d:d:d --force --no-interaction
 #sudo docker-compose exec -T php-service php bin/console d:d:c --no-interaction
