@@ -36,6 +36,6 @@ RUN npm install yarn@latest -g
 RUN node -v
 RUN npm -v
 
-#COPY ./docker/php/docker-entry.sh /
-#RUN chmod +x /docker-entry.sh
-#ENTRYPOINT [ "/docker-entry.sh" ]
+COPY ./docker/php/docker-entry.sh /
+RUN chmod +x /docker-entry.sh
+ENTRYPOINT [ "/docker-entry.sh" ]

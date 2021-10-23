@@ -30,6 +30,7 @@ services:
             - "${PHP_PORT}:3306"
         volumes:
             - ./:/application
+        command: tail -F anything
         restart: on-failure
         depends_on:
             - db-service
