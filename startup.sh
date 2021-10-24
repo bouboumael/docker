@@ -33,6 +33,16 @@ sudo curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 echo -e "\n"
+echo "+-----------------------------------+"
+echo "|  Configuration permission docker  |"
+echo "+-----------------------------------+"
+echo -e "\n"
+
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+
+echo -e "\n"
 echo "+---------------------------+"
 echo "|  Configuration du server  |"
 echo "+---------------------------+"
