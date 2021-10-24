@@ -50,7 +50,7 @@ then
     fi
 fi
 
-    if [ !$(getent "docker" admin) ]
+    if [ !$(getent docker admin) ]
     then
         echo -e "\n"
         echo "+-----------------------------------+"
