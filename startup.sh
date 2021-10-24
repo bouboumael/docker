@@ -49,8 +49,8 @@ then
         newgrp docker
     fi
 fi
-
-    if [ !$(getent docker admin) ]
+    grp="docker"
+    if [ !$(getent grp admin) ]
     then
         echo -e "\n"
         echo "+-----------------------------------+"
