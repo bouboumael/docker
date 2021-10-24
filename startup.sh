@@ -49,8 +49,8 @@ then
         newgrp docker
     fi
 fi
-    egrep -i "^docker" /etc/group;
-    echo $?
+    grp=egrep -i "^docker" /etc/group;
+    echo $grp
     if [ $? -ne 0 ]
     then
         echo -e "\n"
