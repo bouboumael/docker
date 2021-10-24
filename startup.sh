@@ -3,6 +3,7 @@
 sudo true
 
 read -p "Voulez-vous intaller docker et docker-compose (N/o)" INIT
+echo "$INIT"
 
 if [ "$INIT" = "o" ]
 then
