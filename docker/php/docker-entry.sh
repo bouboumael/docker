@@ -12,3 +12,12 @@
 # chmod -R 777 /application/public
 # composer install --no-interaction
 echo "help"
+
+set -e
+
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
+	set -- php "$@"
+fi
+
+exec "$@"
