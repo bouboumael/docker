@@ -2,35 +2,50 @@
 
 sudo true
 
-echo -e "\n"
-echo "+--------------------------+"
-echo "|  Installation de Docker  |"
-echo "+--------------------------+"
-echo -e "\n"
+read -p "Voulez-vous intaller docker et docker-compose (N/o)" INIT
 
-sudo apt-get remove docker docker-engine docker.io containerd runc
-sudo apt-get update
-sudo  apt-get install \
-      apt-transport-https \
-      ca-certificates \
-      curl \
-      gnupg \
-      lsb-release
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io
+if [ "$INIT" = "o" ]
+then
+    echo -e "\n"
+    echo "+--------------------------+"
+    echo "|  Installation de Docker  |"
+    echo "+--------------------------+"
+    echo -e "\n"
 
-echo -e "\n"
-echo "+----------------------------------+"
-echo "|  Installation de Docker-Compose  |"
-echo "+----------------------------------+"
-echo -e "\n"
+    sudo apt-get remove docker docker-engine docker.io containerd runc
+    sudo apt-get update
+    sudo  apt-get install \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg \
+        lsb-release
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+    sudo apt-get install docker-ce docker-ce-cli containerd.io
 
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+    echo -e "\n"
+    echo "+----------------------------------+"
+    echo "|  Installation de Docker-Compose  |"
+    echo "+----------------------------------+"
+    echo -e "\n"
+
+    sudo curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+
+    echo -e "\n"
+    echo "+-----------------------------------+"
+    echo "|  Configuration permission docker  |"
+    echo "+-----------------------------------+"
+    echo -e "\n"
+
+    sudo groupadd docker
+    sudo usermod -aG docker $USER
+    newgrp docker
+fi
 
 echo -e "\n"
 echo "+---------------------------+"
@@ -42,24 +57,24 @@ echo -e "\n"
 
 if [ "$server" = "o" ]
 then
-  sudo cp model.env .env
+    sudo cp model.env .env
 
-  read -p "Nom de votre database : " MYSQL_DATABASE
-  read -p "Nom de votre utilisateur : " MYSQL_USER
-  read -sp "Mot de passe utilisateur : " MYSQL_PASSWORD
-  echo
-  read -sp "Mot de passe root : " MYSQL_ROOT_PASSWORD
-  echo
-  read -p "Port de la BDD : " MYSQL_PORT
-  read -p "Port PHP : " PHP_PORT
-  read -p "Port HTTP : " NGINX_PORT_HTTP
-  read -p "Port HTTPS : " NGINX_PORT_HTTPS
-  read -p "EMAIL GIT : " GIT_MAIL
-  read -p "USERNAME GIT : " GIT_USERNAME
+    read -p "Nom de votre database : " MYSQL_DATABASE
+    read -p "Nom de votre utilisateur : " MYSQL_USER
+    read -sp "Mot de passe utilisateur : " MYSQL_PASSWORD
+    echo
+    read -sp "Mot de passe root : " MYSQL_ROOT_PASSWORD
+    echo
+    read -p "Port de la BDD : " MYSQL_PORT
+    read -p "Port PHP : " PHP_PORT
+    read -p "Port HTTP : " NGINX_PORT_HTTP
+    read -p "Port HTTPS : " NGINX_PORT_HTTPS
+    read -p "EMAIL GIT : " GIT_MAIL
+    read -p "USERNAME GIT : " GIT_USERNAME
 
-  DATABASE_URL="mysql://$MYSQL_USER:$MYSQL_PASSWORD@db-service:3306/$MYSQL_DATABASE?serverVersion=mariadb-10.6.4"
+    DATABASE_URL="mysql://$MYSQL_USER:$MYSQL_PASSWORD@db-service:3306/$MYSQL_DATABASE?serverVersion=mariadb-10.6.4"
 
-  sudo sed -i -e "s|\"local\"|$DATABASE_URL|" \
+    sudo sed -i -e "s|\"local\"|$DATABASE_URL|" \
               -e "s|MYSQL_PORT|MYSQL_PORT=$MYSQL_PORT|" \
               -e "s|MYSQL_DATABASE|MYSQL_DATABASE=$MYSQL_DATABASE|" \
               -e "s|MYSQL_USER|MYSQL_USER=$MYSQL_USER|" \
@@ -94,9 +109,9 @@ sudo docker-compose exec -T php-service php bin/console d:d:c --no-interaction
 sudo docker-compose exec -T php-service php bin/console d:m:m --verbose --no-interaction --allow-no-migration
 
 if [ "${APP_ENV}" != "prod" ]; then
-  sudo docker-compose exec -T php-service php bin/console doctrine:fixtures:load --quiet --no-interaction --no-debug
+    sudo docker-compose exec -T php-service php bin/console doctrine:fixtures:load --quiet --no-interaction --no-debug
 else
-  echo
+    echo
 fi
 
 echo -e "\n"
