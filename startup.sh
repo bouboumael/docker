@@ -36,16 +36,32 @@ then
     sudo curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
 
-    echo -e "\n"
-    echo "+-----------------------------------+"
-    echo "|  Configuration permission docker  |"
-    echo "+-----------------------------------+"
-    echo -e "\n"
+    if [ !$(getent "docker" admin) ]
+    then
+        echo -e "\n"
+        echo "+-----------------------------------+"
+        echo "|  Configuration permission docker  |"
+        echo "+-----------------------------------+"
+        echo -e "\n"
 
-    sudo groupadd docker
-    sudo usermod -aG docker $USER
-    newgrp docker
+        sudo groupadd docker
+        sudo usermod -aG docker $USER
+        newgrp docker
+    fi
 fi
+
+    if [ !$(getent "docker" admin) ]
+    then
+        echo -e "\n"
+        echo "+-----------------------------------+"
+        echo "|  Configuration permission docker  |"
+        echo "+-----------------------------------+"
+        echo -e "\n"
+
+        sudo groupadd docker
+        sudo usermod -aG docker $USER
+        newgrp docker
+    fi
 
 echo -e "\n"
 echo "+---------------------------+"
