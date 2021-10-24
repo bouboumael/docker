@@ -3,7 +3,6 @@
 sudo true
 
 read -p "Voulez-vous intaller docker et docker-compose (N/o)" INIT
-echo "$INIT"
 
 if [ "$INIT" = "o" ]
 then
@@ -47,16 +46,6 @@ then
     sudo usermod -aG docker $USER
     newgrp docker
 fi
-
-echo -e "\n"
-echo "+-----------------------------------+"
-echo "|  Configuration permission docker  |"
-echo "+-----------------------------------+"
-echo -e "\n"
-
-sudo groupadd docker
-sudo usermod -aG docker $USER
-newgrp docker
 
 echo -e "\n"
 echo "+---------------------------+"
