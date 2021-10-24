@@ -51,7 +51,8 @@ then
 fi
     egrep -i "^docker" /etc/group;
     echo $?
-    if [ $? -eq 0 ]; then
+    if [ $? -ne 0 ]
+    then
         echo -e "\n"
         echo "+-----------------------------------+"
         echo "|  Configuration permission docker  |"
