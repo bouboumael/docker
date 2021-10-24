@@ -49,9 +49,8 @@ then
         newgrp docker
     fi
 fi
-    grp="docker"
-    if [ !$(getent grp admin) ]
-    then
+    egrep -i "^groupname" /etc/group;
+    if [ $? -ne 0 ]; then
         echo -e "\n"
         echo "+-----------------------------------+"
         echo "|  Configuration permission docker  |"
